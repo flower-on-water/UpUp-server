@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+    rust:
+        container_name: cli_env_rust
+        image: rust:1-slim-buster
+        volumes:
+            - ..:/usr/local/src/server
+        working_dir: /usr/local/src/server
+        user: 1000:1000
