@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+    main:
+        build:
+            context: ./docker/main
+            args:
+                - DEV_UID=${DEV_GID}
+                - DEV_GID=${DEV_UID}
+                - APP_DIR=${APP_DIR}
+        volumes:
+            - ../src:${APP_DIR}/src
+            - ../Cargo.toml:${APP_DIR}/Cargo.toml
+            - ../Cargo.lock:${APP_DIR}/Cargo.lock
+
+            - cargo_resistry:/usr/local/cargo/resistry
+        working_dir: ${APP_DIR}
+        command: "cargo watch -w src -w Cargo.toml -x 'run -v'"
+
+
+volumes:
+    cargo_resistry:
